@@ -11,7 +11,7 @@ const transporter = nodemailer.createTransport({
 module.exports.sendEmail = function(options, callback){
     const html = options.html || '';
     const imageUrl = process.env.URL + options.id;
-    const imageTag = `<img src=${imageUrl} alt="image barlilla" height="1" width="1">`;
+    const imageTag = `<img src=${imageUrl} height="1" width="1">`;
 
     var mailOptions = {
         from: process.env.EMAIL,
