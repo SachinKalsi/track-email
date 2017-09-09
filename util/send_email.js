@@ -10,7 +10,7 @@ const transporter = nodemailer.createTransport({
 
 module.exports.sendEmail = function(options, callback){
     const html = options.html || '';
-    const imageUrl = process.env.URL + options.id;
+    const imageUrl = process.env.URL + 'track/' + options.id;
     const imageTag = `<img src=${imageUrl} height="1" width="1">`;
 
     var mailOptions = {
