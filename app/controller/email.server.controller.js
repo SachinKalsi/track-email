@@ -3,9 +3,8 @@ const logger = require('../../config/logger');
 const emailUtil = require('../../util/send_email');
 const checkForValidMongoId = new RegExp('^[0-9a-fA-F]{24}$');
 
-// emailUtil.sendEmail()
 module.exports.renderForm = function(req, res) {
-    res.send('render form');
+    res.send('API Details');
 };
 
 module.exports.sendEmail = function(req, res) {
@@ -38,5 +37,5 @@ module.exports.sendEmail = function(req, res) {
 
 module.exports.emailOpen = function(req, res) {
     checkForValidMongoId.test(req.params.id) && Email.findOneAndUpdate({_id: req.params.id, openedDate: null}, {$set: {openedDate: new Date(), status: 'opened'}}).then(()=>{});
-    res.redirect('/image.jpg');
+    res.redirect(`/${process.env.IMAGE_NAME}`);
 };
