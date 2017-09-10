@@ -25,7 +25,7 @@ module.exports.sendEmail = function(req, res) {
         }, emailSentStatus );
     }
 
-    function emailSentStatus(error, info) {
+    function emailSentStatus(error) {
         if (error) {
             email.status = 'failed';
             email.error = error;
@@ -37,14 +37,19 @@ module.exports.sendEmail = function(req, res) {
 
 module.exports.emailOpen = function(req, res) {
     if(checkForValidMongoId.test(req.params.id)) {
-        Email.findOneAndUpdate({_id: req.params.id, openedDate: null}, {$set: {openedDate: new Date(), status: 'opened'}}).then((email)=>{
-            acknowledge(email);
+        Email.findOne({ _id: req.params.id, status: {$ne: 'opened'} }).then((email) => {
+            if(email){
+                email.openedDate = new Date();
+                email.status = 'opened';
+                email.save();
+                acknowledge(email);
+            }
         });
     }
     res.redirect(`/${process.env.IMAGE_NAME}`);
 };
 
-function acknowledge(emailDetails){
+function acknowledge(emailDetails) {
     const options = {
         to: process.env.EMAIL,
         subject: `${emailDetails.to} has opened email`,
