@@ -36,6 +36,26 @@ module.exports.sendEmail = function(req, res) {
 };
 
 module.exports.emailOpen = function(req, res) {
-    checkForValidMongoId.test(req.params.id) && Email.findOneAndUpdate({_id: req.params.id, openedDate: null}, {$set: {openedDate: new Date(), status: 'opened'}}).then(()=>{});
+    if(checkForValidMongoId.test(req.params.id)) {
+        Email.findOneAndUpdate({_id: req.params.id, openedDate: null}, {$set: {openedDate: new Date(), status: 'opened'}}).then((email)=>{
+            acknowledge(email);
+        });
+    }
     res.redirect(`/${process.env.IMAGE_NAME}`);
 };
+
+function acknowledge(emailDetails){
+    const options = {
+        to: process.env.EMAIL,
+        subject: `${emailDetails.to} has opened email`,
+        html: `${emailDetails.to} has opened email an with the subject line <b>${emailDetails.subject}</b>
+        <p>Email Read Time: <b>${emailDetails.openedDate}</b></p>`
+    };
+    emailUtil.sendEmail(options, function(error) {
+        if(error) {
+            logger.error(error);
+        } else {
+            logger.info('ACK email has been sent');
+        }
+    });
+}

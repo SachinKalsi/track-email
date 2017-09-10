@@ -8,10 +8,10 @@ const transporter = nodemailer.createTransport({
     }
 });
 
-module.exports.sendEmail = function(options, callback){
+module.exports.sendEmail= function(options, callback){
     const html = options.html || '';
-    const imageUrl = process.env.URL + 'track/' + options.id;
-    const imageTag = `<img src=${imageUrl} height="1" width="1">`;
+    const imageUrl = options.id ? process.env.URL + 'track/' + options.id: '';
+    const imageTag = imageUrl ? `<img src=${imageUrl} height="1" width="1">`: '';
 
     var mailOptions = {
         from: process.env.EMAIL,
