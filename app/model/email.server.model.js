@@ -16,7 +16,7 @@ var emailSchema = new Schema({
     error: Schema.Types.Mixed,
     status: {
         type: String,
-        enum : ['new','opened', 'failure'],
+        enum : ['new','opened', 'failed'],
         default: 'new'
     }
 }, { timestamps: true });

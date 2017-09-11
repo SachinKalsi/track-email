@@ -10,9 +10,8 @@ module.exports.renderForm = function(req, res) {
 module.exports.sendEmail = function(req, res) {
     const email = new Email(req.body);
     email.save()
-        .then(savedEmail => {
+        .then(() => {
             sendEmail();
-            res.json({success: true, id : savedEmail.id});
         })
         .catch(e => res.json({success: false, error: e.message}));
 
@@ -31,6 +30,9 @@ module.exports.sendEmail = function(req, res) {
             email.error = error;
             email.save();
             logger.error(error);
+            res.json({success: false, error: error});
+        } else{
+            res.json({success: true, id : email.id});
         }
     }
 };
