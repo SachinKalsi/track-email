@@ -6,6 +6,11 @@ Node JS (>6.9)
 Gmail Account
 
 MongoDB
+# How it works ?
+
+Embed a tiny (1x1 resolution preferably) image inside the body of the email, with a unique URL (or Unique ID) pointing to our server
+& send it to the user. Whenever the user opens the email which we sent, the browser tries to render the image by calling the unique URL. Whenever the Unique URL hits our server, we can log the details such as timestamp & also we can trigger some actions if required. And this confirms that the user has read the Email which we sent
+
 # How to execute ?
 1. Set up env variables by creating .env file (under project folder i.e., under `track-email`) with the following contents
 	 * NODE_ENV=development
