@@ -4,6 +4,8 @@ This app lets you know if the emails you've sent have been read or not
 Node JS (>6.9)
 
 Gmail Account
+
+MongoDB
 # How to execute ?
 1. Set up env variables by creating .env file (under project folder i.e., under `track-email`) with the following contents
 	 * NODE_ENV=development
