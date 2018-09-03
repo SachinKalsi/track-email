@@ -22,7 +22,7 @@ Embed a tiny (1x1 resolution preferably) image inside the body of the email, wit
 	 * `URL=http://localhost:3000/`
 	 * `IMAGE_NAME=image.jpg`
 2. Go to https://www.google.com/settings/security/lesssecureapps & enable less secure apps.
-3. ```npm install & npm start``` The server is running on the port 3000 (as mentioned in env file)
+3. `npm install & npm start` The server is running on the port 3000 (as mentioned in env file)
 # Send email
 - API: http://localhost:3000/
 - METHOD: POST
